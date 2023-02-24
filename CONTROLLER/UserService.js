@@ -117,25 +117,25 @@ class UserService {
     }
 
 
-    // async resetCurrentPassword(req,res){
-    //     const {currentPassword, newPassword} = req.body
+    async resetCurrentPassword(req,res){
+        const {currentPassword, newPassword} = req.body
         
-    //     const user = await UserSchema.findById(req.user.id).select('+password')
+        const user = await UserSchema.findById(req.user.id).select('+password')
         
-    //     if(!user){
-    //         return res.status(404).json({message: 'USER DOES NOT EXIST'})
-    //     }
+        if(!user){
+            return res.status(404).json({message: 'USER DOES NOT EXIST'})
+        }
        
-    //     const isMatch = await user.comparePassword(currentPassword,user.password)
-    //     if(!isMatch){
-    //         return res.status(404).json({message: 'INCORRECT PASSWORD'})
-    //     }
+        const isMatch = await user.comparePassword(currentPassword,user.password)
+        if(!isMatch){
+            return res.status(404).json({message: 'INCORRECT PASSWORD'})
+        }
 
-    //     user.password = newPassword
-    //     await user.save()
+        user.password = newPassword
+        await user.save()
 
-    //     res.status(200).json({message:"PASSWORD CHANGED", user})
-    // }
+        res.status(200).json({message:"PASSWORD CHANGED", user})
+    }
     
 }
 

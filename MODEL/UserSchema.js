@@ -53,16 +53,6 @@ UserSchema.methods.createToken = function(){
 }
 
 
-UserSchema.methods.decryptJwt = async (token) => {
-    try {
-     const userId = jwt.verify(token, process.env.secretKey)
-     return userId.id
-    } catch (error) {
-     return
-    }
- }
-
-
 UserSchema.methods.send2FACode = function(){
     const token = crypto.randomBytes(3).toString('hex')
     this.FACode = token
