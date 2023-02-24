@@ -16,10 +16,27 @@ class UserService {
         await user.save()
 
         sendEmail(email, "Verify Email KuCoin", {username, pin})
-        const token = user.createToken()
        
         res.status(202).json({user, token})
     }
+
+    
+    async resendConfirmPin (req,res) {
+        const {email} = req.body
+        const user = await UserSchema.findOne({email})
+        if(!user){
+            return res.status(404).json({message:'ENTER YOUR SIGN IN EMAIL'})
+        }
+
+        const username = user.username
+        const pin = user.send2FACode()
+        
+        await user.save()
+        await sendEmail(email, 'Token Resent', { username, pin });
+
+        res.status(200).json({message: "TOKEN RESENT"})
+    }
+
 
     async confirmPin(req,res) {
         const {pin} = req.body
