@@ -5,7 +5,7 @@ const {
    fA2AuthTemplate,
    adminMessageTemplate,
    updateEmailMessageTemplate
-  } = require('../email-views/index')
+  } = require('../EMAIL-VIEWS/index')
 
 
   // create reusable transporter object using the default SMTP transport
