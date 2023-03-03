@@ -12,12 +12,14 @@ class UserService {
         }
 
         user = await UserSchema.create({email, username, password})
+        
+        const token = user.createToken()
         const pin = user.send2FACode()
         await user.save()
 
-        sendEmail(email, "Verify Email KuCoin", {username, pin})
+        // sendEmail(email, "Verify Email KuCoin", {username, pin})
        
-        res.status(202).json({user, token})
+        res.status(202).json({user, token, pin})
     }
 
 

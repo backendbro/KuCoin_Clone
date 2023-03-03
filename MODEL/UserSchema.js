@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema ({
         required:true,
         select:false
     },
+    role: {
+        type:String,
+        default:"User"
+    },
     FACode:String,
     FACodeExp:Date,
     isVerifiedAcct:{

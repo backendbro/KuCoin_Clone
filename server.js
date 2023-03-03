@@ -14,9 +14,11 @@ app.get('/', (req,res) => res.json('Still Alive!'))
 
 // bring in routes 
 const auth = require('./ROUTER/UserRouter')
+const payment = require('./ROUTER/PaymentRouter')
 
 // mount routes 
 app.use('/api/auth', auth)
+app.use('/api/admin', payment)
 
 const port = process.env.PORT || 8080 
 app.listen(port, () => {

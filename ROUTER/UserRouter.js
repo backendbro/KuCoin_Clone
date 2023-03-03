@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const UserService = require('../CONTROLLER/UserService')
-const {protect, role} = require('../MIDDLEWARES/protect')
+const {protect} = require('../MIDDLEWARES/protect')
 
 router.post('/register', UserService.register)
 router.post('/login', UserService.login)

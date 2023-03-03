@@ -15,7 +15,7 @@ const {
     secure: true,
     auth: {
       user:"chikanzube03@gmail.com", 
-      pass: "naakobayvicgypoo"
+      pass: "scbxftgoavlmiced"
     }
   });
 
