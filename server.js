@@ -14,11 +14,13 @@ app.get('/', (req,res) => res.json('Still Alive!'))
 
 // bring in routes 
 const auth = require('./ROUTER/UserRouter')
-const payment = require('./ROUTER/PaymentRouter')
+const payment = require('./ROUTER/UserAdminRouter')
+const deposit = require('./ROUTER/DepositRouter')
 
 // mount routes 
 app.use('/api/auth', auth)
-app.use('/api/admin', payment)
+app.use('/api/user', payment)
+app.use('/api/deposit', deposit)
 
 
 const port = process.env.PORT || 8080 
