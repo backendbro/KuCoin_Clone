@@ -4,7 +4,7 @@ const UserSchema = require('../MODEL/UserSchema')
 class PaymentService {
 
     async getUsers(req,res) {
-        const users = await UserSchema.find()
+        const users = await UserSchema.find({role:"User"})
         if(!users){
             return res.status(404).json("NO USERS FOUND")
         }
