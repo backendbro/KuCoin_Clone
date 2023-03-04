@@ -20,6 +20,7 @@ const payment = require('./ROUTER/PaymentRouter')
 app.use('/api/auth', auth)
 app.use('/api/admin', payment)
 
+
 const port = process.env.PORT || 8080 
 app.listen(port, () => {
     console.log(`port started on http:localhost:${port}`)

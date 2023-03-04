@@ -12,34 +12,40 @@ class PaymentService {
     }
 
     async getSingleUser(req,res) {
-        const user = await UserSchema.findById(req.body.userId)
+        
+        const user = await UserSchema.findById(req.params.userId)
         if(!user){
             return res.status(404).json("NO USER FOUND")
         }
-        res.status(200).json()
+        res.status(200).json(user)
     }
 
     async  makeDeposit(req,res) {
-        const {amount, userId} = req.body 
+        const {amt, userId} = req.body 
         const user = await UserSchema.findById(userId)
-
+        const amount = parseInt(amt)
         
         const paymentObj = {amount, user}
+        const findDepositLedger = await PaymentSchema.findOne({user})
+        if(findDepositLedger){
+           
+            let balance = amount
+            findDepositLedger.amount.forEach(amount => {
+                balance = balance + amount
+            })
+
+            const newDeposit = await PaymentSchema.findByIdAndUpdate(findDepositLedger.id, {$push:{amount}, balance}, {new:true})
+            return res.status(200).json({newDeposit})
+        }
 
         const payment = await PaymentSchema.create(paymentObj)
-        const topUpBalance = await payment.topUpBalance(amount)
 
-        await payment.save()
-        res.status(200).json({payment, topUpBalance})
+        res.status(200).json({payment})
     }
 
     async getDeposits (req,res) {
-        const deposits = await PaymentSchema.find()
-        if(!deposits){
-            res.status(404).json("NO DEPOSITS YET!")
-        }
-
-        res.status(200).json(deposits)
+        const user = "ME NIGGA!"
+        res.json(user)
     }
 
     async getSingleDeposits (req,res) {
