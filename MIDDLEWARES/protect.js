@@ -1,4 +1,4 @@
-const UserSchema = require('../MODEL/UserSchema')
+const UserSchema = require('../model/UserSchema')
 const jwt = require("jsonwebtoken")
 
 const protect = async (req,res,next) => {

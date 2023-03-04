@@ -1,5 +1,5 @@
-const PaymentSchema = require('../MODEL/PaymentSchema')
-const UserSchema = require('../MODEL/UserSchema')
+const PaymentSchema = require('../model/PaymentSchema')
+const UserSchema = require('../model/UserSchema')
 
 class DepositService {
     

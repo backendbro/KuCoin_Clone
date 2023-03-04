@@ -1,6 +1,6 @@
 const express = require('express')
 const dotenv = require('dotenv')
-const connectDb = require('./DATABASE/database')
+const connectDb = require('./database/database')
 
 const app = express()
 app.use(express.json())
@@ -13,9 +13,9 @@ connectDb()
 app.get('/', (req,res) => res.json('Still Alive!'))
 
 // bring in routes 
-const auth = require('./ROUTER/UserRouter')
-const payment = require('./ROUTER/UserAdminRouter')
-const deposit = require('./ROUTER/DepositRouter')
+const auth = require('./router/UserRouter')
+const payment = require('./router/UserAdminRouter')
+const deposit = require('./router/DepositRouter')
 
 // mount routes 
 app.use('/api/auth', auth)

@@ -1,5 +1,5 @@
-const UserSchema = require('../MODEL/UserSchema')
-const sendEmail = require('../ULTIS/email')
+const UserSchema = require('../model/UserSchema')
+const sendEmail = require('../ultis/email')
 
 class UserService {
 
