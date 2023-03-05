@@ -22,36 +22,36 @@ const {
 
   const sendEmail = async (to, subject, payload) => {
   let template;
-  const {username, pin} = payload 
-  
-  if(subject == 'Verify Email KuCoin'){
-   template = verifyEmailTemplate({username, pin})
+  const {username, pin, request} = payload 
+
+  if(subject == 'Domicion Verification Code'){
+   template = verifyEmailTemplate({username, pin, request})
   }
 
   else if (subject == 'Reset Password'){
-    template = forgotPasswordTemplate({username, pin})
+    template = forgotPasswordTemplate({username, pin, request})
   }
 
   else if(subject == "Enter 2FA Code") {
-    template = fA2AuthTemplate({username, pin})
+    template = fA2AuthTemplate({username, pin, request})
   }
   
   else if(subject == "Update Email Kucoin"){
-    template = updateEmailMessageTemplate({username, pin})
+    template = updateEmailMessageTemplate({username, pin, request})
   }
   
-  else if(subject == "Token Resent"){
-    template = fA2AuthTemplate({username, pin})
+  else if(subject == "Resend Code"){
+    template = fA2AuthTemplate({username, pin, request})
   }
   
   else if (subject == "Admin Message"){
     const {username, description} = payload
-    template = adminMessageTemplate({username, description})
+    template = adminMessageTemplate({username, description, request})
   }
 
   else if (subject == "Withdrawal Request") {
     const {username, amount } = payload
-    template = withDrawalRequestTemplate({username, amount})
+    template = withDrawalRequestTemplate({username, amount, request})
   }
 
   const info = {

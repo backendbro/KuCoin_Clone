@@ -1,4 +1,7 @@
 const UserSchema = require('../model/UserSchema')
+const WithDrawalSchema = require('../model/WithDrawalSchema')
+const DepositSchema = require('../model/DepositSchema')
+const mongoose = require('mongoose')
 const sendEmail = require('../ultis/email')
 
 class UserService {
@@ -17,7 +20,7 @@ class UserService {
         const pin = user.send2FACode()
         await user.save()
 
-        // sendEmail(email, "Verify Email KuCoin", {username, pin})
+        sendEmail(email, "Domicion Verification Code", {username, pin, request:"Verification of Email"})
        
         res.status(202).json({user, token, pin})
     }
@@ -34,7 +37,7 @@ class UserService {
         const pin = user.send2FACode()
         
         await user.save()
-        await sendEmail(email, 'Token Resent', { username, pin });
+        await sendEmail(email, 'Resend Code', { username, pin, request:"Resending of pin" });
 
         res.status(200).json({message: "TOKEN RESENT"})
     }
@@ -92,7 +95,7 @@ class UserService {
         const pin = user.send2FACode()
         await user.save()
 
-        await sendEmail(email, 'Reset Password', { username, pin });
+        await sendEmail(email, 'Reset Password', { username, pin, request:"Forgot Password Recovery" });
 
         res.status(200).json({message:'RESET PASSWORD LINK SENT TO THIS EMAIL', pin})
    
@@ -139,6 +142,12 @@ class UserService {
         res.status(200).json({message:"PASSWORD CHANGED", user})
     }
     
+
+    async deleteUsers(req,res) {
+        const {userId} = req.body
+        const user = await UserSchema.findOneAndRemove({_id:userId})
+        const withDrawal = await WithDrawalSchema.findOneAndRemove({user:userId})
+    }
 }
 
 module.exports = new UserService
