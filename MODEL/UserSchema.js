@@ -1,10 +1,10 @@
-const mongoose = require('mongoose')
+const {Schema, model} = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const crypto = require('crypto')
 
 
-const UserSchema = new mongoose.Schema ({
+const UserSchema = Schema ({
     email:{
         type:String,
         unique:true,
@@ -65,4 +65,4 @@ UserSchema.methods.send2FACode = function(){
     return token
 }
 
-module.exports = mongoose.model('User', UserSchema)
+module.exports = model('User', UserSchema)

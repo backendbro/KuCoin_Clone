@@ -1,5 +1,7 @@
-// const router = require('express').Router()
-// const WithDrawalService = require('../controller/WithDrawalService')
-// const {protect, auth } = require('../middlewares/protect')
+const router = require('express').Router()
+const WithDrawalService = require('../controller/WithDrawalService')
+const {protect, auth } = require('../middlewares/protect')
 
-// module.exports = router
+router.post('/request', protect, WithDrawalService.withDrawalRequest)
+
+module.exports = router

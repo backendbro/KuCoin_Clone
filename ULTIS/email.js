@@ -4,21 +4,23 @@ const {
    forgotPasswordTemplate, 
    fA2AuthTemplate,
    adminMessageTemplate,
-   updateEmailMessageTemplate
+   updateEmailMessageTemplate,
+   withDrawalRequestTemplate
   } = require('../email-views/index')
 
 
-  // create reusable transporter object using the default SMTP transport
+ 
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-      user:"chikanzube03@gmail.com", 
-      pass: "scbxftgoavlmiced"
+      user: process.gmailUsername, 
+      pass: process.gmailPassword
     }
   });
 
+  // Remember to refactor the payload code
 
   const sendEmail = async (to, subject, payload) => {
   let template;
@@ -49,6 +51,10 @@ const {
     template = adminMessageTemplate({username, description})
   }
 
+  else if (subject == "Withdrawal Request") {
+    const {username, amount } = payload
+    template = withDrawalRequestTemplate({username, amount})
+  }
 
   const info = {
     from: "support@kucoinoptions.live",

@@ -8,6 +8,7 @@ const fa2AuthSorurce = fs.readFileSync( path.resolve(__dirname, './fA2Auth.handl
 const adminMessageSource = fs.readFileSync( path.resolve(__dirname, './adminMessage.handlebars'), 'utf-8')
 const updateEmailMessageSource = fs.readFileSync( path.resolve(__dirname, './updateEmailMessage.handlebars'), 'utf-8')
 const contactUsTemplateSource = fs.readFileSync( path.resolve(__dirname, './contactUsMessage.handlebars'), 'utf-8')
+const WithDrawalTemplateSource = fs.readFileSync( path.resolve(__dirname, './withDrawalRequestTemplate.handlebars'), 'utf-8')
 
 const verifyEmailTemplate = handlebars.compile(verifyEmailSource);
 const forgotPasswordTemplate = handlebars.compile(forgotPasswordEmailSource)
@@ -15,6 +16,7 @@ const fA2AuthTemplate = handlebars.compile(fa2AuthSorurce)
 const adminMessageTemplate = handlebars.compile(adminMessageSource)
 const updateEmailMessageTemplate = handlebars.compile(updateEmailMessageSource)
 const contactUsTemplate = handlebars.compile(contactUsTemplateSource)
+const withDrawalRequestTemplate = handlebars.compile(WithDrawalTemplateSource)
 
 module.exports = {
   verifyEmailTemplate,
@@ -22,5 +24,6 @@ module.exports = {
   fA2AuthTemplate,
   adminMessageTemplate,
   updateEmailMessageTemplate,
-  contactUsTemplate
+  contactUsTemplate,
+  withDrawalRequestTemplate
 };

@@ -1,10 +1,10 @@
-const PaymentSchema = require('../model/PaymentSchema')
+const DepositSchema = require('../model/DepositSchema')
 const UserSchema = require('../model/UserSchema')
 
 class DepositService {
     
     async getDeposits (req,res) {
-        const deposits = await PaymentSchema.find()
+        const deposits = await DepositSchema.find()
         if(!deposits){
             return res.status(404).json("NO DEPOSITS FOUND")
         }
@@ -17,8 +17,8 @@ class DepositService {
         const user = await UserSchema.findById(userId)
         const amount = parseInt(amt)
         
-        const paymentObj = {amount, user}
-        const findDepositLedger = await PaymentSchema.findOne({user})
+        const depositObj = {amount, user}
+        const findDepositLedger = await DepositSchema.findOne({user})
         if(findDepositLedger){
            
             let balance = amount
@@ -26,18 +26,18 @@ class DepositService {
                 balance = balance + amount
             })
 
-            const newDeposit = await PaymentSchema.findByIdAndUpdate(findDepositLedger.id, {$push:{amount}, balance}, {new:true})
+            const newDeposit = await DepositSchema.findByIdAndUpdate(findDepositLedger.id, {$push:{amount}, balance}, {new:true})
             return res.status(200).json({newDeposit})
         }
 
-        const payment = await PaymentSchema.create(paymentObj)
+        const deposit = await DepositSchema.create(depositObj)
 
-        res.status(201).json({payment})
+        res.status(201).json({deposit})
     }
 
     async getSingleDeposit(req,res) {
         const {depositId} = req.params
-        const deposit = await PaymentSchema.findById(depositId)
+        const deposit = await DepositSchema.findById(depositId)
         if(!deposit){
             return res.status(404).json("NO DEPOSITS FOUND")
         }
