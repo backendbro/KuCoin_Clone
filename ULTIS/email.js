@@ -36,10 +36,6 @@ const {
     template = fA2AuthTemplate({username, pin, request})
   }
   
-  else if(subject == "Update Email Kucoin"){
-    template = updateEmailMessageTemplate({username, pin, request})
-  }
-  
   else if(subject == "Resend Code"){
     template = fA2AuthTemplate({username, pin, request})
   }

@@ -143,11 +143,6 @@ class UserService {
     }
     
 
-    async deleteUsers(req,res) {
-        const {userId} = req.body
-        const user = await UserSchema.findOneAndRemove({_id:userId})
-        const withDrawal = await WithDrawalSchema.findOneAndRemove({user:userId})
-    }
 }
 
 module.exports = new UserService
