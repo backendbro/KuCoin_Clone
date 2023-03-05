@@ -8,15 +8,13 @@ const {
    withDrawalRequestTemplate
   } = require('../email-views/index')
 
-
- 
   let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-      user: process.gmailUsername, 
-      pass: process.gmailPassword
+      user: process.env.gmailUsername, 
+      pass: process.env.gmailPassword
     }
   });
 
