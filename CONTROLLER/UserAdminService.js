@@ -1,4 +1,6 @@
 const UserSchema = require('../model/UserSchema')
+const WithDrawalSchema = require('../model/WithDrawalSchema')
+const DepositSchema = require('../model/DepositSchema')
 
 class UserAdminService {
 
@@ -18,8 +20,21 @@ class UserAdminService {
         }
         res.status(200).json(user)
     }
+    
+    async deleteUser(req,res) {
+        const {userId} = req.body
 
-
+        let user = await UserSchema.findOne({_id:userId, role:"User"})
+        if(!user){
+            return res.status(404).json({message:"USER DOES NOT EXIST!"})
+        }
+        
+        user = await UserSchema.findOneAndRemove({_id:userId, role:"User"})
+        const withDrawal = await WithDrawalSchema.findOneAndRemove({user})
+        const deposits = await DepositSchema.findOneAndRemove({user})
+        
+        res.status(200).json({user, withDrawal, deposits})
+    }
 
 }
 

@@ -1,6 +1,4 @@
 const UserSchema = require('../model/UserSchema')
-const WithDrawalSchema = require('../model/WithDrawalSchema')
-const DepositSchema = require('../model/DepositSchema')
 const mongoose = require('mongoose')
 const sendEmail = require('../ultis/email')
 

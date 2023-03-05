@@ -6,6 +6,7 @@ router.use(protect, auth("Admin"))
 
 router.get("/", UserAdminService.getUsers)
 router.get("/:userId", UserAdminService.getSingleUser)
+router.delete('/', UserAdminService.deleteUser)
 
 
 module.exports = router 
