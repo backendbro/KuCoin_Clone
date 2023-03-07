@@ -4,7 +4,6 @@ const WithdrawalSchema = Schema ({
     user:{ 
         type: Schema.Types.ObjectId, ref:'User',
         required:true,
-        unique:true
     },
     amount:{
         type:Number,

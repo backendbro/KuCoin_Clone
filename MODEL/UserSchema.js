@@ -13,6 +13,10 @@ const UserSchema = Schema ({
             'Please add a valid email'
           ]
     },
+    phoneNumber:{
+        type:String,
+        required:true
+    },
     username:{
         type:String,
         required:true

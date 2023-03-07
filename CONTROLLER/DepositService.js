@@ -1,5 +1,6 @@
 const DepositSchema = require('../model/DepositSchema')
 const UserSchema = require('../model/UserSchema')
+const WithDrawalSchema = require('../model/WithDrawalSchema')
 
 class DepositService {
     
@@ -18,14 +19,28 @@ class DepositService {
         const amount = parseInt(amt)
         
         const depositObj = {amount, user:userId}
+
         const findDepositLedger = await DepositSchema.findOne({user})
+        const findConfirmedWithDrawal = await WithDrawalSchema.find({status:"Confirmed"})
+
+
         if(findDepositLedger){
-           
+            
+            let confirmedAmt = 0;
             let balance = amount
+
             findDepositLedger.amount.forEach(amount => {
                 balance = balance + amount
             })
 
+            if(findConfirmedWithDrawal){
+                findConfirmedWithDrawal.forEach(confirmed => {
+                    confirmedAmt = confirmed.amount + confirmedAmt
+                })
+            }
+
+            balance = balance - confirmedAmt
+           
             const newDeposit = await DepositSchema.findByIdAndUpdate(findDepositLedger.id, {$push:{amount}, balance}, {new:true})
             return res.status(200).json({newDeposit})
         }
@@ -45,6 +60,8 @@ class DepositService {
         }
         res.status(200).json(deposit)
     }
+
+  
 }
 
 module.exports = new DepositService

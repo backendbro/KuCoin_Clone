@@ -4,7 +4,7 @@ const {
    forgotPasswordTemplate, 
    fA2AuthTemplate,
    adminMessageTemplate,
-   updateEmailMessageTemplate,
+   ContactWithDrawalUser,
    withDrawalRequestTemplate
   } = require('../email-views/index')
 
@@ -20,7 +20,7 @@ const {
 
   // Remember to refactor the payload code
 
-  const sendEmail = async (to, subject, payload) => {
+  const sendEmail = async (to, subject, payload, userFrom=null) => {
   let template;
   const {username, pin, request} = payload 
 
@@ -32,22 +32,23 @@ const {
     template = forgotPasswordTemplate({username, pin, request})
   }
 
-  else if(subject == "Enter 2FA Code") {
-    template = fA2AuthTemplate({username, pin, request})
+  else if(subject == "Request of WithDrawal") {
+    const {username, message, request} = payload 
+    template = ContactWithDrawalUser({username, message, request})
   }
   
   else if(subject == "Resend Code"){
     template = fA2AuthTemplate({username, pin, request})
   }
   
-  else if (subject == "Admin Message"){
-    const {username, description} = payload
-    template = adminMessageTemplate({username, description, request})
+  else if (subject == "Follow up on of Request of WithDrawal"){
+    const {username, message, request} = payload 
+    template = adminMessageTemplate({username, message, request})
   }
 
   else if (subject == "Withdrawal Request") {
     const {username, amount } = payload
-    template = withDrawalRequestTemplate({username, amount, request})
+    template = withDrawalRequestTemplate({username, amount})
   }
 
   const info = {
@@ -56,7 +57,7 @@ const {
     subject,
     html:template
   }
-  
+
   await transporter.sendMail(info)
 }
 

@@ -15,6 +15,7 @@ class WithDrawalService {
         const adminEmail = "backendbomafiaso@gmail.com"
         const withDrawalRequestObj = {user:user._id, amount}
 
+
         await WithDrawalSchema.create(withDrawalRequestObj)
         await sendEmail(adminEmail,  "Withdrawal Request", {username, amount})
         
@@ -54,17 +55,25 @@ class WithDrawalService {
     }
 
     async confirmWithDrawalRequest(req,res) {
-        const {userId, status} = req.body
-        const id = mongoose.Types.ObjectId(userId);
+        const {userId, status, withDrawalId} = req.body
+        const userObjectId = mongoose.Types.ObjectId(userId);
 
         const user = await UserSchema.findById(userId)
-        let withDrawalRequest = await WithDrawalSchema.findOne({user: id, status : "Pending"})
-        let deposit = await DepositSchema.findOne({user:id})
+        let withDrawalRequest = await WithDrawalSchema.findOne({_id: withDrawalId, status : "Pending"})
+        let deposit = await DepositSchema.findOne({user:userObjectId})
+
+        if(!withDrawalRequest){
+            return res.status(404).json({message:"ALREADY CONFIRMED"})
+        }
+        
+        if(!deposit){
+            return res.status(404).json({message:"NO DEPOSIT YET!"})
+        }
 
         const withdrawalAmount = withDrawalRequest.amount 
         const depositBalance = deposit.balance
 
-        
+            
         if(withdrawalAmount > depositBalance ){
             return res.status(404).json({message:"INSUFFICIENT FUNDS"})
         }

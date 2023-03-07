@@ -13,7 +13,7 @@ const verifyEmailTemplate = handlebars.compile(verifyEmailSource);
 const forgotPasswordTemplate = handlebars.compile(forgotPasswordEmailSource)
 const fA2AuthTemplate = handlebars.compile(fa2AuthSorurce)
 const adminMessageTemplate = handlebars.compile(adminMessageSource)
-const contactUsTemplate = handlebars.compile(contactUsTemplateSource)
+const ContactWithDrawalUser = handlebars.compile(contactUsTemplateSource)
 const withDrawalRequestTemplate = handlebars.compile(WithDrawalTemplateSource)
 
 module.exports = {
@@ -21,6 +21,6 @@ module.exports = {
   forgotPasswordTemplate,
   fA2AuthTemplate,
   adminMessageTemplate,
-  contactUsTemplate,
+  ContactWithDrawalUser,
   withDrawalRequestTemplate
 };
